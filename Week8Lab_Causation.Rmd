@@ -1,0 +1,120 @@
+---
+title: "Week8Lab,Causation "
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Indirect Causation 
+```{r}
+fire <- sample(
+  c(0,1),
+  size = 10000,
+  replace = T
+)
+
+
+smoke <- ifelse(
+  fire == 1,
+  sample(
+    c(0,1),
+    size = 10000,
+    replace = T,
+    prob = c(0.05, 0.95)
+  ),
+  sample(
+    c(0,1),
+    size = 10000,
+    replace = T,
+    prob = c(0.8,0.2)
+  )
+)
+  
+
+alarm <- ifelse(
+  smoke == 1,
+  sample(
+    c(0,1),
+    size = 10000,
+    replace = T,
+    prob = c(0.01, 0.99)
+  ),
+  sample(
+    c(0,1),
+    size = 10000,
+    replace = T,
+    prob = c(0.99,0.01)
+  )
+)
+  
+data <- data.frame(
+  fire = fire,
+  smoke = smoke,
+  alarm = alarm
+)
+
+model <- glm(
+  alarm ~ fire + smoke, ##can swap smoke for any other variable 
+  data = data,
+  family = quasibinomial()
+)
+
+summary(model)
+
+exp(model$coefficients[2])/(exp(model$coefficients[2])+1)
+```
+Direct Causation 
+```{r}
+age <- sample(
+  5:10,
+  size = 10000,
+  replace =T
+)
+
+shoe <- age + rnorm(10000)
+
+reading <- age*2 - 5 + rnorm(10000)*1.5
+  
+data <- data.frame(
+  age = age,
+  shoe = shoe,
+  reading = reading
+)
+
+model <- lm(
+  reading ~ shoe + age, #predict reading with another variable 
+  data = data
+)
+
+summary(model)
+```
+
+Collider Causation
+
+```{r}
+talent <- rnorm(10000)
+  
+beauty <- rnorm(10000)
+  
+celebrity <- ifelse(
+  talent + beauty > 2,
+  1, 
+  0
+)
+  
+data <- data.frame(
+  talent = talent,
+  beauty = beauty,
+  celebrity = celebrity 
+)
+
+model <- glm(
+  celebrity ~ talent, 
+  data = data, 
+  family = quasibinomial()
+)
+
+summary(model)
+```
+

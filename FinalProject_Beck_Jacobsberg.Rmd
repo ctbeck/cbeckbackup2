@@ -1,0 +1,51 @@
+---
+title: "FinalProject_Beck_Jacobsberg"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(tidyverse)
+library(censusapi)
+library(sf)
+library(mapview)
+library(tigris)
+library(readxl)
+library(leaflet)
+library(mapview)
+library(tidycensus)
+
+
+Sys.setenv(CENSUS_KEY="c18a7f6e5cbbd1e7f0d3047d8b674cbaad89bcb3")
+
+
+
+```
+
+```{r}
+pums_2019_1yr <- getCensus(
+  name = “acs/acs1/pums”,
+  vintage = 2019,
+  region = “public use microdata area:,
+  regionin = “state:06”,
+  vars = c(
+    “SERIALNO”,
+    “SPORDER”,
+    “PWGTP”,
+    “WGTP”,
+    “NP”,
+    “HINCP”,
+    “RWAT”,
+    “FFSP”,
+    “KIT”,
+    “BLD”,
+    “TEN”
+  )
+)
+```
+
