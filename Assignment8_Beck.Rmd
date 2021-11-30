@@ -252,7 +252,9 @@ rbind(
   )
 ```
 
-In the year 2018, and the Antioch Bart station was built in 2017, a large number of riders now say they are BART riders. This slope between 2017 and 2018 is very steep. The effect size of this treatment is far greater than Milpitas and it's BART station. 
+In the year 2018, and the Antioch Bart station was built in 2017, a large number of riders now say they are BART riders. This slope between 2017 and 2018 is very steep. The effect size of this treatment is far greater than Milpitas and it's BART station.
+
+Based on just the graph, it may seem clear that the selected PUMA has an increase in BART ridership relative to the control PUMAs, but given the scale of that difference and the averaging of the behavior of the control PUMAs (keep in mind we’re artificially viewing one teal line when in fact there are ten with possibly wide variation), we should withhold judgment until we see the results of the formal difference-in-differences analysis.
 
 Generate Diff in Diff Regression
 
@@ -281,3 +283,20 @@ Treated = 470 compared to 157 from the textbook
 Time = 207, the baseline change is quite high, just like in the textbook
 DiD: 1097.22 is the difference in difference which again is way higher than the textbook. The unique contribution of the BART station has really affected this PUMA. 
 This result was significant with a p-value of 0.001 compared to the textbook example. 
+
+The “difference-in-differences” result of interest, is that the Antioch BART station in 2018, as having had an estimated impact of about 1097 new BART commuters. Unlike the textbook example, the positive effect size of the treatment and the previous plot are statistically significant (i.e. p-value is less than 5%), so we can come to some conlcusion with this analysis. Being that, the result of the BART station increased the ridership. 
+
+<br>
+
+Model Assumptions:
+
+1. We chose a particular outcome to evaluate, bart, which may not be the most pronounced or important possible causal effect of a BART station to evaluate. Perhaps the key ridership is arriving at the Antioch station, not leaving from it (which would not be observable using the same kind of PUMS analysis). Perhaps the greater impact of a station is on commercial and residential development. Perhaps ridership has increased, but just not as the travel mode for work trips. That being said, commute ridership would seem to be a very straightforward measure of the impact of a BART station in a community.
+
+2. We are assuming that respondents picked “Subway or elevated car” in the ACS questionnaire to represent a BART commute trip.
+
+3. We did not have the cleanest geographies to choose from, so the particular PUMA we chose to consider as “treated” may have been too big to see the relevant effect, which may have been mainly on neighborhoods within biking/walking distance of the station. On the other hand, we may not have picked enough PUMAs, if most riders are driving in from further away.
+
+4. We did not match based on any other variables other than 2014-2016 train ridership. For example, we could have “controlled for” other variables like employment, income, demographics, in the same way we would have done a multiple regression.
+
+5. We are using PUMS data which may introduce greater noise because of lower sample size relative to other possible datasets. In this example we did not incorporate replicate weights for simplicity; if you were to include them, you’d get a lower standard error on treated:time, making this result almost statistically significant.
+
