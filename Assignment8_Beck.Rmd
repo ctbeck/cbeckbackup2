@@ -282,9 +282,11 @@ Commentary:
 Treated = 470 compared to 157 from the textbook 
 Time = 207, the baseline change is quite high, just like in the textbook
 DiD: 1097.22 is the difference in difference which again is way higher than the textbook. The unique contribution of the BART station has really affected this PUMA. 
-This result was significant with a p-value of 0.001 compared to the textbook example. 
+This result was significant with a p-value of 0.001 compared to the textbook example. More precisely, it is 7.327e-15
 
 The “difference-in-differences” result of interest, is that the Antioch BART station in 2018, as having had an estimated impact of about 1097 new BART commuters. Unlike the textbook example, the positive effect size of the treatment and the previous plot are statistically significant (i.e. p-value is less than 5%), so we can come to some conlcusion with this analysis. Being that, the result of the BART station increased the ridership. 
+
+While the result for ‘treated’ being 470.68 indicates that this particular PUMA already used to have a higher number of BART commuters on average compared to “Similar PUMAs”, the model output for ‘time’ being 207.28 is relevant as it shows the difference of BART commuter in “Similar PUMAs” across pre- and post-treatment (the opening of the Antioch station). Especially when compared to the ‘treated:time’ value of 1097.22, this shows the impact of the treatment and fairly eliminates the possibility of impact due to external factor or that this would have happened regardless of treatment.
 
 <br>
 
@@ -299,4 +301,10 @@ Model Assumptions:
 4. We did not match based on any other variables other than 2014-2016 train ridership. For example, we could have “controlled for” other variables like employment, income, demographics, in the same way we would have done a multiple regression.
 
 5. We are using PUMS data which may introduce greater noise because of lower sample size relative to other possible datasets. In this example we did not incorporate replicate weights for simplicity; if you were to include them, you’d get a lower standard error on treated:time, making this result almost statistically significant.
+
+6. Antioch BART station only opened in mid-2018 however our data is annual so in reality, this change reflects a mixed period in which half of the time was pre-treatment and the other half was post-treatment. It could be interesting to extend the time frame past 2019 and see if the number of BART commuters continued to increase in the 01309 PUMA (compared to the similar PUMAs, of course) in the next year too.
+
+7. When selecting the 10 other PUMAs used to create the “Similar PUMAs” category, we did not take into account potential changes that could have occurred to those PUMAs individually, such as, the opening or closing of BART stations in those locations which could have a meaningful impact on the data collected. Furthermore, we could chose to increase n too strengthen reliability of the control.
+
+8. Lastly, we did not look into any changes happening to other alternatives modes of transport available to the same people happening in a similar period. This could include use of buses, trains and even independent vehicle (cars or motorcycles) ownership.
 
