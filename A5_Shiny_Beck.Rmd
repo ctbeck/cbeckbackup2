@@ -123,7 +123,7 @@ observeEvent({
   }, {
 
 equity_graph <- smc_sensors_equity %>%
-  filter(categories == "income") %>% #input$category
+  filter(categories == input$category) %>% #input$category
   group_by(option, AQI_Cat) %>%
   summarise(estimate = sum(estimate)) %>%
   ungroup() %>%

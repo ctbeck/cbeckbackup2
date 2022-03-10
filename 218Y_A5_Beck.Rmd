@@ -33,6 +33,9 @@ knitr::opts_chunk$set(echo = F, warning = F, message = F)
 
 <h4> Part 1: Geographic Equity </h4>
 
+We associated sensors with jurisdictions by filtering the sensors twice. Once by county to get to San Mateo County only and then a second time with places() for each city (Foster City and East Palo Alto). <br> 
+
+
 We looked at outdoor air quality between East Palo Alto and Foster City and created a graph comparing PM 2.5 concentrations over time (February) for both jurisdictions as well as a map of the whole of San Mateo County and the AQI across the region. The graph shows that PM 2.5 is actually pretty ok. There are more sensors in the Bay-side rather than the ocean-side of the County, which makes the data coming from Foster City and East Palo Alto fairly reliable. It seems like the 280 is the boundary between the area with more and fewer sensors. The AQI map shows that our areas of interest had predominantly good or moderate air quality (though there were parts of San Mateo that had worse AQI).
 
 ```{r}
@@ -321,7 +324,15 @@ We looked at outdoor air quality between East Palo Alto and Foster City and crea
 
 <h4> Part 2: Population Equity </h4>
 
-Moving on to our equity analysis in part 2, we were looking at how race and income could affect the distribution of good/moderate air quality. For the race analysis, it did seem fairly representational of the racial breakdown of the region, and also quite even across moderate and good. This may just be because the AQI of the region is already pretty good. For income too, the population was equitably distributed between good and moderate. For both of these, the majority is white people with over $150,000. If we were to look specifically at East Palo Alto, or other less affluent jurisdictions, that might not be the case. But since this chart is representing all of San Mateo County's data, we are probably seeing skewed data towards a more rosy picture. This would be an interesting area for follow up study. 
+Moving on to our equity analysis in part 2, we were looking at how race and income could affect the distribution of good/moderate air quality. For the race analysis, it did seem fairly representational of the racial breakdown of the region, and also quite even across moderate and good. This may just be because the AQI of the region is already pretty good.For Good air quality, white alone populations have 540454 number of sensors monitoring the air quality verus the 8827 sensors that Black/African American alone have. This might skew the data towards good air quality in the Black/African American alone towards seeming better beecause there are fewer sensors monitoring the area. This difference is even worse in the moderate category. White alone populations have 13252 sensors monitoring and picked up moderate air quality, whereas Black/African American alone have only 530 sensors. This could mean that the air quality is far worse (or potentially far better) than we are observing in the data. 
+
+
+For the income breakdown, for good air, there is a much larger proportion of sensors for populations making 150,000 (387353) or more versus the populations making less than 10,000 (16158). 
+
+
+Since this chart is representing all of San Mateo County's data, we are probably seeing skewed data towards a more rosy picture. This would be an interesting area for follow up study. A future analysis we could do is understanding how much of the population is 150K earning or above. If the majority of the population is making that salary, then it would be understandable for that population to have the largest proportion of sensors compared to the total population. If it is not the case that the majority of San Mateo County's residents are White alone and/or making 150K, then it is a very clear equity issue that those two populations have the highest sensor count compared to the total population. <br>
+
+We associated sensors with Census populations by first pulling all of the sensor data from the purple air file, we then associated that data with geometries from the places Census data (ACS 5-year data from 2019). This then narrowed the number of sensors to just those within the San Mateo County boundary. Next, we overlayed that boundary to isolate the sensors of interest (cookie cutter style) while keeping the estimate data (population data). We pulled data focused on race and income from ACS. Our two options were: option a is assuming the sample from existing sensors are representative of the whole population so extrapolate then and option b (the one we went with) was to apply the current equity scenario to the sensors which includes assuming every sensors represents an x% white and y% african american and z% asian family. <br> 
 
 ```{r}
 # aqi_pal <- colorFactor(
